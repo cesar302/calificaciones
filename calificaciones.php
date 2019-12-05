@@ -17,7 +17,7 @@ function carreras(){
 	//consulta sql
 	$query = "CREATE TABLE IF NOT EXISTS $t_carreras (
 		id int auto_increment,
-		name varchar(25),
+		nombre varchar(25),
 		UNIQUE(id)
 		) $charset_collate";
 	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -31,7 +31,7 @@ function grupos(){
 	//consulta sql
 	$query = "CREATE TABLE IF NOT EXISTS $t_grupos (
 		id int auto_increment,
-		name varchar(25),
+		nombre varchar(25),
 		id_carrera int,
 		UNIQUE(id)
 		) $charset_collate";
@@ -46,8 +46,7 @@ function alumnos(){
 	//consulta sql
 	$query = "CREATE TABLE IF NOT EXISTS $t_alumnos (
 		id int auto_increment,
-		name varchar(25),
-		last varchar(25),
+		nombre varchar(25),
 		id_grupo int,
 		UNIQUE(id)
 		) $charset_collate";
@@ -80,10 +79,12 @@ require_once( dirname(__FILE__).'/add_carrera.php'    );
 
 require_once( dirname(__FILE__).'/add_grupo.php'      );
 
-require_once( dirname(__FILE__).'/add_alumno.php'     );
+require_once( dirname(__FILE__).'/add_alumnos.php'     );
+
+require_once( dirname(__FILE__).'/upd_alumno.php'     );
 
 
-
+add_shortcode("upd_alumno","upd_alumno");
 add_shortcode("add_carrera","add_carrera" );
 add_shortcode("add_grupo","add_grupo"     );
 add_shortcode("add_alumno","add_alumno"   );

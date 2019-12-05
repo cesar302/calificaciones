@@ -1,22 +1,22 @@
 <?php
 function add_grupo(){
-	require_once (dirname( __FILE__ ) .'/../functions.php'       );
-	require_once (dirname( __FILE__ ) .'/../css/extension_styles.php');
-	extension_files();
+	require_once (dirname( __FILE__ ) .'/functions.php'       );
+	//require_once (dirname( __FILE__ ) .'/../css/extension_styles.php');
+	//extension_files();
 	global $wpdb;
 	$tabla_grupo = $wpdb->prefix . 'grupo';
 	ob_start();
 	if (!empty($_POST)
 		AND $_POST['nombre'] != ''
 		AND $_POST['carrera'] != ''
-	)) {
+	) {
 		$nombre =  sanitize_text_field($_POST['nombre']);
 		$id_carrera = (int) getIdCarrera($_POST['carrera']);
 		$wpdb ->insert(
 					$tabla_grupo, 
 					array(
 						'nombre' => $nombre,
-						'id_carrera' => $carrera,
+						'id_carrera' => $id_carrera,
 						)
 					);
 		echo "<div id='form-add'>";
@@ -24,6 +24,7 @@ function add_grupo(){
 		unset($_POST);
 		echo "<form clas='form-add' action='".get_the_permalink()."' method='post'><input type='submit' value='Agregar otro Grupo'></form>";
 		echo "</div>";
+		
 	}else{
 		//Formulario para Agregar Grupos
 		?>
@@ -35,8 +36,9 @@ function add_grupo(){
 			</form>
 		</div>
 		<?php
-		return ob_get_clean();
+		
 	}
+	return ob_get_clean();
 }
 
 ?>

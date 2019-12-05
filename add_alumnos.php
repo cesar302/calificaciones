@@ -1,22 +1,23 @@
 <?php
 function add_alumno(){
-	require_once (dirname( __FILE__ ) .'/../functions.php'       );
-	require_once (dirname( __FILE__ ) .'/../css/extension_styles.php');
-	extension_files();
+	require_once (dirname( __FILE__ ) .'/functions.php'       );
+	//require_once (dirname( __FILE__ ) .'/../css/extension_styles.php');
+	//extension_files();
 	global $wpdb;
 	$tabla_alumno = $wpdb->prefix . 'alumno';
 	ob_start();
 	if (!empty($_POST)
 		AND $_POST['nombre'] != ''
 		AND $_POST['carrera'] != ''
-	)) {
+		AND $_POST['grupo'] != ''
+	) {
 		$nombre =  sanitize_text_field($_POST['nombre']);
-		$id_carrera = (int) getIdCarrera($_POST['carrera']);
+		$grupo = (int) getIdCarrera($_POST['grupo']);
 		$wpdb ->insert(
 					$tabla_alumno, 
 					array(
 						'nombre' => $nombre,
-						'id_carrera' => $carrera,
+						'id_grupo' => $grupo,
 						)
 					);
 		echo "<div id='form-add'>";
@@ -24,23 +25,25 @@ function add_alumno(){
 		unset($_POST);
 		echo "<form clas='form-add' action='".get_the_permalink()."' method='post'><input type='submit' value='Agregar otro Alumno'></form>";
 		echo "</div>";
+
 	}
 	else if (!empty($_POST)
-		AND $_POST['nombre'] != ''
+		AND $_POST['nombre'] == ''
 		AND $_POST['carrera'] != ''
-		AND $_POST['grupo'] != ''
+		AND $_POST['grupo'] == ''
 	) {
+		$carr=$_POST['carrera'];
 		?>
 		<div id="div_form">
 			<form class="form-add" action="<?php get_the_permalink(); ?>" method="post" >
 				<label class="text-small-uppercase" for="Nombre">Nombre: </label><input class="text-body" type="text" name="nombre" required="required" />
-				<label class="text-small-uppercase" for="carrera">Grupo: </label><select class="text-body" name="grupo"><?php getGrupos();?></select>
+				<label class="text-small-uppercase" for="carrera">Grupo: </label><select class="text-body" name="grupo"><?php getGrupo($carr);?></select>
 				<input type="hidden" name="carrera" value="<?php echo $_POST['carrera']; ?>">
 				<br /><input class="text-body" type="submit" name="submit" value="Agregar alumno">
 			</form>
 		</div>
 		<?php
-		return ob_get_clean();
+		
 	}{
 		//Formulario para Agregar alumnos
 		?>
@@ -53,8 +56,9 @@ function add_alumno(){
 			</form>
 		</div>
 		<?php
-		return ob_get_clean();
+		
 	}
+	return ob_get_clean();
 }
 
 ?>

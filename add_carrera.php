@@ -1,8 +1,8 @@
 <?php
-function add_carreras(){
-	require_once (dirname( __FILE__ ) .'/../functions.php'       );
-	require_once (dirname( __FILE__ ) .'/../css/extension_styles.php');
-	extension_files();
+function add_carrera(){
+	require_once (dirname( __FILE__ ) .'/functions.php'       );
+	//require_once (dirname( __FILE__ ) .'/css/extension_styles.php');
+	//extension_files();
 	ob_start();
 	global $wpdb;
 
