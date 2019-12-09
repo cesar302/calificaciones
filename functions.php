@@ -49,4 +49,15 @@ function getIdGrupo($grupo){
 		echo esc_textarea($value->id);
 		return esc_textarea($value->id);
 	}
+
+}
+function getIdAlumno($grupo,$nombre){
+	global $wpdb;
+	$table_alumnos = $wpdb ->prefix . 'alumno';
+	$id = $wpdb->get_results("SELECT id FROM $table_alumnos WHERE nombre = '$nombre' AND id_grupo = '$grupo'");
+	foreach ($id as $value) {
+		# code...
+		echo esc_textarea($value->id);
+		return esc_textarea($value->id);
+	}
 }

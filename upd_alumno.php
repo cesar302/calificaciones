@@ -17,7 +17,7 @@ function upd_alumno(){
 		
 		$wpdb ->update($tabla_alumno,
 			array('id_grupo'=>$grupo),
-			array('nombre'=>$nombre),
+			array('nombre'=>$nombre)
 		);
 		echo "<div id='div_form'>";
 		echo "<p class='exito'>Datos actualizados</p>";
